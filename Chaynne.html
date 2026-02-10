@@ -4,203 +4,262 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Love Letter</title>
+
 <style>
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: #ffe6e6;
-        font-family: 'Arial', sans-serif;
+body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at top, #ffe6e6, #ffb3c6);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* MAIN LAYOUT */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+}
+
+/* PHOTOS */
+.polaroid {
+    background: white;
+    padding: 12px 12px 30px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    animation: floatPhoto 6s ease-in-out infinite;
+}
+
+.polaroid img {
+    width: 220px;
+    border-radius: 10px;
+}
+
+.polaroid span {
+    display: block;
+    margin-top: 8px;
+    font-weight: bold;
+    color: #800000;
+    text-align: center;
+}
+
+.left {
+    animation-delay: 0s;
+}
+
+.right {
+    animation-delay: 2s;
+}
+
+@keyframes floatPhoto {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* CENTER CONTENT */
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* HEART */
+.heart {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background: red;
+    transform: rotate(-45deg);
+    animation: beat 1s infinite;
+    box-shadow: 0 0 35px rgba(255,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: red;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -100px;
+    left: 0;
+}
+
+.heart::after {
+    left: 100px;
+    top: 0;
+}
+
+/* NAME — FIXED VISIBILITY */
+.name {
+    position: absolute;
+    z-index: 10;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    transform: rotate(45deg);
+    text-shadow:
+        0 0 5px rgba(0,0,0,0.6),
+        0 0 10px rgba(255,255,255,0.8);
+}
+
+@keyframes beat {
+    0% { transform: rotate(-45deg) scale(1); }
+    50% { transform: rotate(-45deg) scale(1.12); }
+    100% { transform: rotate(-45deg) scale(1); }
+}
+
+/* BUTTON */
+button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* MESSAGE */
+.message {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #800000;
+    max-width: 420px;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+/* PETALS */
+.petal {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: pink;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    animation: fall linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-50px) rotate(-45deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* MOBILE FIX */
+@media (max-width: 900px) {
+    .container {
         flex-direction: column;
-        text-align: center;
-        overflow: hidden;
-        position: relative;
-    }
-
-    /* Heart shape */
-    .heart {
-        position: relative;
-        width: 200px;
-        height: 200px;
-        background: red;
-        transform: rotate(-45deg);
-        margin-bottom: 20px;
-        animation: beat 1s infinite alternate;
-        display: flex;
         justify-content: center;
-        align-items: center;
+        gap: 20px;
     }
-
-    .heart::before,
-    .heart::after {
-        content: "";
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        background: red;
-        border-radius: 50%;
-    }
-
-    .heart::before { top: -100px; left: 0; }
-    .heart::after { left: 100px; top: 0; }
-
-    /* Name inside heart */
-    .name {
-        color: white;
-        font-size: 28px;
-        font-weight: bold;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-        z-index: 10;
-        animation: pulse 1s infinite alternate;
-        transform: rotate(45deg); /* Correct rotation so text aligns inside heart */
-    }
-
-    /* Heart beat animation */
-    @keyframes beat {
-        0% { transform: rotate(-45deg) scale(1); }
-        50% { transform: rotate(-45deg) scale(1.1); }
-        100% { transform: rotate(-45deg) scale(1); }
-    }
-
-    /* Name pulse */
-    @keyframes pulse {
-        0% { transform: rotate(45deg) scale(1); }
-        50% { transform: rotate(45deg) scale(1.1); }
-        100% { transform: rotate(45deg) scale(1); }
-    }
-
-    /* Button */
-    #showButton {
-        padding: 10px 20px;
-        font-size: 16px;
-        border: none;
-        border-radius: 8px;
-        background: #ff4d6d;
-        color: white;
-        cursor: pointer;
-        margin-top: 10px;
-        transition: background 0.3s;
-    }
-    #showButton:hover {
-        background: #ff1a3c;
-    }
-
-    /* Love message styling */
-    .message {
-        margin-top: 20px;
-        font-size: 18px;
-        color: #800000;
-        max-width: 400px;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 1.5s ease;
-    }
-    .message.show {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Floating hearts */
-    .floating-heart {
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        background: red;
-        transform: rotate(-45deg);
-        border-radius: 50%;
-        animation: floatUp linear infinite;
-    }
-    .floating-heart::before,
-    .floating-heart::after {
-        content: "";
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        background: red;
-        border-radius: 50%;
-    }
-    .floating-heart::before { top: -7.5px; left: 0; }
-    .floating-heart::after { left: 7.5px; top: 0; }
-    @keyframes floatUp {
-        0% { transform: translateY(0) rotate(-45deg); opacity: 1; }
-        100% { transform: translateY(-400px) rotate(-45deg); opacity: 0; }
-    }
-
-    /* Sparkles */
-    .sparkle {
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        background: #fff;
-        border-radius: 50%;
-        opacity: 0.8;
-        animation: sparkleAnim 2s linear infinite;
-    }
-    @keyframes sparkleAnim {
-        0% { transform: translateY(0) scale(1); opacity: 1; }
-        100% { transform: translateY(-200px) scale(0.5); opacity: 0; }
-    }
+}
 </style>
 </head>
+
 <body>
 
-<div class="heart">
-    <div class="name">Chaynne</div>
+<div class="container">
+
+    <!-- LEFT PHOTO -->
+    <div class="polaroid left">
+        <img src="photo1.jpg" alt="Memory 1">
+        <span>Us 💕</span>
+    </div>
+
+    <!-- CENTER -->
+    <div class="center">
+        <div class="heart">
+            <div class="name">Chaynne</div>
+        </div>
+
+        <button id="showButton">Click here to see the message</button>
+        <div class="message" id="loveMessage"></div>
+    </div>
+
+    <!-- RIGHT PHOTO -->
+    <div class="polaroid right">
+        <img src="photo2.jpg" alt="Memory 2">
+        <span>Always ✨</span>
+    </div>
+
 </div>
 
-<button id="showButton">Click here to see the message</button>
-
-<div class="message" id="loveMessage"></div>
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-    const messageText = `Hi Chaynables,
+const messageText = `Hi Chaynables,
 
-Every time I see you, I can’t help but smile… and sometimes get a little distracted by how amazing you look. 😏
-You light up my life in ways I can’t even explain, good luck in your studies and goals, always here for you, my favorite monkey. 🐒`;
+Every time I see you, my heart forgets how to behave.
+You’re my favorite feeling, my calm, and my chaos 😌
 
-    const loveMessage = document.getElementById('loveMessage');
-    const button = document.getElementById('showButton');
+Good luck in everything you’re chasing.
+I’m always right here for you.
 
-    // Show the love message with typewriter effect
-    function typeMessage(text, element, speed = 50) {
-        let i = 0;
-        element.style.opacity = 1;
-        element.classList.add('show');
-        const interval = setInterval(() => {
-            element.innerHTML += text.charAt(i).replace(/\n/g, "<br>");
-            i++;
-            if (i >= text.length) clearInterval(interval);
-        }, speed);
-    }
+— Your favorite human 💖`;
 
-    button.addEventListener('click', () => {
-        button.style.display = 'none';
-        typeMessage(messageText, loveMessage, 50);
-    });
+const loveMessage = document.getElementById('loveMessage');
+const button = document.getElementById('showButton');
+const music = document.getElementById('bgMusic');
 
-    // Floating hearts
-    function createFloatingHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('floating-heart');
-        heart.style.left = Math.random() * window.innerWidth + 'px';
-        heart.style.animationDuration = 3 + Math.random() * 3 + 's';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
-    }
-    setInterval(createFloatingHeart, 500);
+function typeMessage(text, element, speed = 40) {
+    let i = 0;
+    element.style.opacity = 1;
+    const interval = setInterval(() => {
+        element.innerHTML += text.charAt(i).replace(/\n/g, "<br>");
+        i++;
+        if (i >= text.length) clearInterval(interval);
+    }, speed);
+}
 
-    // Sparkles
-    function createSparkle() {
-        const sparkle = document.createElement('div');
-        sparkle.classList.add('sparkle');
-        sparkle.style.left = Math.random() * window.innerWidth + 'px';
-        sparkle.style.top = Math.random() * window.innerHeight + 'px';
-        sparkle.style.animationDuration = 1 + Math.random() * 2 + 's';
-        document.body.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 2000);
-    }
-    setInterval(createSparkle, 300);
+button.onclick = async () => {
+    button.style.display = 'none';
+
+    music.currentTime = 13;
+    music.volume = 0;
+
+    try { await music.play(); } catch(e) {}
+
+    let fade = setInterval(() => {
+        if (music.volume < 0.6) {
+            music.volume += 0.02;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
+
+    typeMessage(messageText, loveMessage);
+};
+
+/* Petals */
+function createPetal() {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    petal.style.left = Math.random() * window.innerWidth + 'px';
+    petal.style.animationDuration = 6 + Math.random() * 5 + 's';
+    document.body.appendChild(petal);
+    setTimeout(() => petal.remove(), 11000);
+}
+setInterval(createPetal, 350);
 </script>
 
 </body>
