@@ -45,13 +45,8 @@ body {
     text-align: center;
 }
 
-.left {
-    animation-delay: 0s;
-}
-
-.right {
-    animation-delay: 2s;
-}
+.left { animation-delay: 0s; }
+.right { animation-delay: 2s; }
 
 @keyframes floatPhoto {
     0%,100% { transform: translateY(0); }
@@ -90,17 +85,10 @@ body {
     border-radius: 50%;
 }
 
-.heart::before {
-    top: -100px;
-    left: 0;
-}
+.heart::before { top: -100px; left: 0; }
+.heart::after { left: 100px; top: 0; }
 
-.heart::after {
-    left: 100px;
-    top: 0;
-}
-
-/* NAME — FIXED VISIBILITY */
+/* NAME INSIDE HEART */
 .name {
     position: absolute;
     z-index: 10;
@@ -113,6 +101,7 @@ body {
         0 0 10px rgba(255,255,255,0.8);
 }
 
+/* HEART ANIMATION */
 @keyframes beat {
     0% { transform: rotate(-45deg) scale(1); }
     50% { transform: rotate(-45deg) scale(1.12); }
@@ -130,10 +119,7 @@ button {
     color: white;
     cursor: pointer;
 }
-
-button:hover {
-    transform: scale(1.05);
-}
+button:hover { transform: scale(1.05); }
 
 /* MESSAGE */
 .message {
@@ -164,11 +150,7 @@ button:hover {
 
 /* MOBILE FIX */
 @media (max-width: 900px) {
-    .container {
-        flex-direction: column;
-        justify-content: center;
-        gap: 20px;
-    }
+    .container { flex-direction: column; justify-content: center; gap: 20px; }
 }
 </style>
 </head>
@@ -234,17 +216,15 @@ function typeMessage(text, element, speed = 40) {
 button.onclick = async () => {
     button.style.display = 'none';
 
+    // Start music at 13s after click
     music.currentTime = 13;
     music.volume = 0;
 
     try { await music.play(); } catch(e) {}
 
     let fade = setInterval(() => {
-        if (music.volume < 0.6) {
-            music.volume += 0.02;
-        } else {
-            clearInterval(fade);
-        }
+        if (music.volume < 0.6) music.volume += 0.02;
+        else clearInterval(fade);
     }, 200);
 
     typeMessage(messageText, loveMessage);
@@ -264,4 +244,3 @@ setInterval(createPetal, 350);
 
 </body>
 </html>
-
